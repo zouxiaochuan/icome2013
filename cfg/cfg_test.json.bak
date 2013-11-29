@@ -1,0 +1,95 @@
+{
+	"LocalExtractor":
+	{
+		"Name": "densesift",
+		"Type": "densesift",
+		"Lib": "vlfeat",
+		"Step": "4",
+		"Sizes" : [ "4","8","12","16"],
+		"MaxSize" : 300
+	},
+	"CodebookBuilder":
+	{
+		"Type": "kmeans",
+		"Lib": "vlfeat",
+		"NumCode": "16",
+		"MaxIteration": "50",
+		"MaxTrainingNum": "10000"
+	},
+	"Codebook":
+	{
+		"Type": "kmeans",
+		"Path": "D:\\work\\icome_challenge\\2013\\fake_data\\codebook\\vq1024_mdsift4,8,12,16_vl"
+	},
+	"Encoder":
+	{
+		"Name": "bofsoft",
+		"Type": "bofsoft",
+		"NumNonZero": "5"
+	},
+	"FeatureExtractor":
+	{
+		"Type": "spm",
+		"SPM": 
+		[
+			["1","1"],
+			["2","2"],
+			["1","3"]
+		],
+		"LocalExtractor": "densesift",
+		"Encoder": "bofsoft"
+	},
+	"Pooler":
+	{
+		"Type": "max"
+	},
+	"Dataset":
+	{
+		"Type": "baidu",
+		"Path": "D:\\work\\icome_challenge\\2013\\fake_data\\data"
+	},
+	"Classifier":
+	{
+		"Type": "liblinear",
+		"SolverType": "2",
+		"C": "10000.0",
+		"Bias": "1.0",
+		"Path": "d:\\work\\icome_challenge\\2013\\code\\data\\model.model"
+	},
+	"Detector1":
+	{
+		"Type": "hogtemplate",
+		"CellSize": "8",
+		"WndSize": "8",
+		"Path": "D:\\work\\icome_challenge\\2013\\code\\data\\model.detector"
+	},
+	"Detector":
+	{
+		"Type": "latentsvm",
+		"ModelPath": "D:\\work\\icome_challenge\\2013\\code\\data\\lsvmmodel",
+		"MaxSize": "300",
+		"Thresh": "-1.0",
+		"ModelPathBaidu": "D:\\work\\icome_challenge\\2013\\code\\data\\humanbaidu"
+	},
+	"Segmenter1":
+	{
+		"Type": "simple",
+		"FaceModel": "d:\\work\\icome_challenge\\2013\\code\\data\\haarcascade_frontalface_default.xml"
+	},
+	"Segmenter2":
+	{
+		"Type": "facetemplate",
+		"FaceModel": "d:\\work\\icome_challenge\\2013\\code\\data\\haarcascade_frontalface_default.xml",
+		"TemplateFile": "d:\\work\\icome_challenge\\2013\\code\\data\\facetemplate.txt"
+	},
+	"Segmenter":
+	{
+		"Type": "det",
+		"Template": "d:\\work\\icome_challenge\\2013\\code\\data\\dettemplate.txt"
+	},
+		
+	"ImagePath": "D:\\work\\icome_challenge\\2013\\fake_data\\data\\train-origin-pics",
+	"EncodedPath": "D:\\work\\icome_challenge\\2013\\fake_data\\encoded",
+	"FeaturePath": "D:\\work\\icome_challenge\\2013\\fake_data\\feature.xml.gz",
+	"BaiduRoot": "D:\\work\\icome_challenge\\2013\\fake_data\\data"
+}

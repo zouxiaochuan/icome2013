@@ -1,0 +1,93 @@
+{
+	"LocalExtractor":
+	{
+		"Type": "densesift",
+		"Lib": "vlfeat",
+		"Step": "4",
+		"Sizes" : [ "4","8","12","16"],
+		"MaxSize" : 300
+	},
+	"CodebookBuilder":
+	{
+		"Type": "kmeans",
+		"Lib": "vlfeat",
+		"NumCode": "1024",
+		"MaxIteration": "50",
+		"MaxTrainingNum": "10000000"
+	},
+	"Codebook":
+	{
+		"Type": "kmeans",
+		"Path": "../../data/vq1024_mdsift4,8,12,16_vl"
+	},
+	"Encoder":
+	{
+		"Type": "bofsoft",
+		"NumNonZero": "16"
+	},
+	"FeatureExtractor":
+	{
+		"Type": "spm",
+		"SPM": 
+		[
+			["1","1"],
+			["2","2"],
+			["4","4"]
+		],
+		"LocalExtractor": "densesift",
+		"Encoder": "bofsoft"
+	},
+	"Pooler":
+	{
+		"Type": "max"
+	},
+	"Dataset":
+	{
+		"Type": "baidu",
+		"Path": "/home/lamda/zouxc/work/icome_challenge/2013/data"
+	},
+	"Classifier":
+	{
+		"Type": "liblinear",
+		"SolverType": "2",
+		"C": "10000.0",
+		"Bias": "1.0",
+		"Path": "../../data/model.model"
+	},
+	"Detector1":
+	{
+		"Type": "hogtemplate",
+		"CellSize": "8",
+		"WndSize": "12",
+		"Path": "../../data/model.detector"
+	},
+	"Detector":
+	{
+		"Type": "latentsvm",
+		"ModelPath": "../../data/lsvmmodel",
+		"MaxSize": "300",
+		"Thresh": "-0.5",
+		"ModelPathBaidu": "../../data/humanbaidu"
+	},
+	"Segmenter1":
+	{
+		"Type": "simple",
+		"FaceModel": "../../data/haarcascade_frontalface_default.xml"
+	},
+	"Segmenter2":
+	{
+		"Type": "facetemplate",
+		"FaceModel": "../../data/haarcascade_frontalface_default.xml",
+		"TemplateFile": "../../data/facetemplate.txt"
+	},
+	"Segmenter":
+	{
+		"Type": "det",
+		"Template": "../../data/dettemplate.txt"
+	},
+	
+	"EncodedPath":"/home/lamda/zouxc/work/icome_challenge/2013/cpp/encoded/BoFSoft1k,16_ms4,8,16,32",
+	"FeaturePath": "/home/lamda/zouxc/work/icome_challenge/2013/cpp/feature/BoFSoft1k,16_ms4,8,16,32_max_spm1,2,4.svm",
+	"ImagePath"  :"/home/lamda/zouxc/work/icome_challenge/2013/data/train-origin-pics",
+	"BaiduRoot": "/home/lamda/zouxc/work/icome_challenge/2013/data"
+}
